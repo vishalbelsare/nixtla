@@ -1,297 +1,192 @@
+# Nixtla &nbsp; [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Statistical%20Forecasting%20Algorithms%20by%20Nixtla%20&url=https://github.com/Nixtla/neuralforecast&via=nixtlainc&hashtags=StatisticalModels,TimeSeries,Forecasting) &nbsp;[![Slack](https://img.shields.io/badge/Slack-4A154B?&logo=slack&logoColor=white)](https://join.slack.com/t/nixtlacommunity/shared_invite/zt-1pmhan9j5-F54XR20edHk0UtYAPcW4KQ)
+
 <div align="center">
-<h1> 
-Open source time series forecasting suite  
-</h1>
-<img src="utils/misc/BannerGit.png">
+<img src="https://raw.githubusercontent.com/Nixtla/neuralforecast/main/nbs/imgs_indx/logo_new.png">
+<h1 align="center">TimeGPT-1 </h1>
+<h3 align="center">The first foundation model for forecasting and anomaly detection</h3>
 
-[Features](#Features) •
-[Where](#How?) •
-[Getting Started ](#Getting-Started-(SDK))
+[![CI](https://github.com/Nixtla/nixtla/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/Nixtla/nixtla/actions/workflows/ci.yaml)
+[![PyPi](https://img.shields.io/pypi/v/nixtla?color=blue)](https://pypi.org/project/nixtla/)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/Nixtla/nixtla/blob/main/LICENSE)
+[![docs](https://img.shields.io/website-up-down-green-red/http/docs.nixtla.io/.svg?label=docs)](https://docs.nixtla.io)
+[![Downloads](https://pepy.tech/badge/nixtla)](https://pepy.tech/project/nixtla)
+[![Downloads](https://pepy.tech/badge/nixtla/month)](https://pepy.tech/project/nixtla)
+[![Downloads](https://pepy.tech/badge/nixtla/week)](https://pepy.tech/project/nixtla)
 
-</div >
+**TimeGPT** is a production ready, generative pretrained transformer for time series. It's capable of accurately predicting various domains such as retail, electricity, finance, and IoT with just a few lines of code 🚀. </div>
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pmp4rqiwiPL-ambxTrJGBiNMS-7vm3v6?ts=616700c4)
-
-Open-source time-series pipeline capable of achieving 1% of the performance in the [M5 competition](https://en.wikipedia.org/wiki/Makridakis_Competitions). 
-
-Our open-source solution has a 25% better accuracy than Amazon Forecast and is 20% more accurate than fbprophet. It also performs 4x faster than Amazon Forecast and is less expensive.
-
-Read this [Medium Post](https://aws.plainenglish.io/automated-time-series-forecasting-pipeline-662e0feadd98) for a Step-by-Step guide .
-
-
-## 🧰 Features 
-
->[tspreprocess](#tspreprocess) to preprocess time-series data such as missing values imputation
-
->[tsfeatures](#tsfeatures) to generate features to include in the models, 
-
->[tsforecast](#tsforecast) to perform forecast at scale
-
->[tsbenchmarks](#tsbenchmarks) to easily calculate accuracy baselines.
-
->[NeurosalForecast](github.com/nixtla/neuralforecast) for state of the art deep learning models
+## 📖 Table of Contents
+- [Quick Start](#-quick-start)
+- [Installation](#install-nixtlas-sdk)
+- [Forecasting with TimeGPT](#forecast-using-timegpt-in-3-easy-steps)
+- [Anomaly Detection](#anomaly-detection-using-timegpt-in-3-easy-steps)
+- [Zero-shot Results](#️-zero-shot-results)
+- [How to Cite](#-how-to-cite)
+- [Features and Mentions](#-features-and-mentions)
+- [License](#-license)
+- [Get in Touch](#-get-in-touch)
 
 
-## ✨ Purpose?
-Help data scientists and developers to have access to open source state-of-the-art forecasting pipelines. 
+## 🚀 Quick Start
 
-## How?
-We built a complete pipeline that can be deployed in the cloud ☁️  using AWS and consumed via APIs or consumed as a service. 
-
-### Build your own Infra [![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)](#Build-your-own-Nixtla-in-AWS)
-If you want to set up your own infrastructure, follow the instructions in the repository (Azure coming soon). With our Infrastructure as Code written in Terraform, you can deploy our solution in minutes without much effort.
-
-### Use our APIs [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pmp4rqiwiPL-ambxTrJGBiNMS-7vm3v6?ts=616700c4)
-You can use our fully hosted version as a service through our [python SDK](https://github.com/Nixtla/nixtla/tree/main/sdk/) ([autotimeseries](https://pypi.org/project/autotimeseries/)). To consume the APIs on our own infrastructure just request tokens by sending an email to federico@nixtla.io or opening a GitHub issue. **We currently have free resources available for anyone interested.**
+https://github.com/Nixtla/nixtla/assets/4086186/163ad9e6-7a16-44e1-b2e9-dab8a0b7b6b6
 
 
 
-# Getting Started (SDK)
-[![CI python sdk](https://github.com/Nixtla/nixtla/actions/workflows/python-sdk.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/python-sdk.yml)
-
-Check the following [example](https://github.com/Nixtla/autotimeseries/tree/main/examples/m5) for a full pipeline:
-
->Install with
-`pip install autotimeseries`
-
-
-<details>
- <summary markdown="span">Import libraries and config AWS </summary>
-
+### Install nixtla's SDK
 ```python
-import os
-
-from autotimeseries.core import AutoTS
-
-autotimeseries = AutoTS(bucket_name=os.environ['BUCKET_NAME'],
-                        api_id=os.environ['API_ID'],
-                        api_key=os.environ['API_KEY'],
-                        aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
-                        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
+pip install nixtla>=0.5.1
 ```
-</details>
 
-<details>
-
-<summary> Upload dataset to S3 </summary>
-
+### Import libraries and load data
+``` python
+import pandas as pd
+from nixtla import NixtlaClient
+```
+###  Forecast using TimeGPT in 3 easy steps
 ```python
-train_dir = '../data/m5/parquet/train'
-# File with target variables
-filename_target = autotimeseries.upload_to_s3(f'{train_dir}/target.parquet')
-# File with static variables
-filename_static = autotimeseries.upload_to_s3(f'{train_dir}/static.parquet')
-# File with temporal variables
-filename_temporal = autotimeseries.upload_to_s3(f'{train_dir}/temporal.parquet')
+# Get your API Key at dashboard.nixtla.io
+
+# 1. Instantiate the NixtlaClient
+nixtla_client = NixtlaClient(api_key = 'YOUR API KEY HERE')
+
+# 2. Read historic electricity demand data
+df = pd.read_csv('https://raw.githubusercontent.com/Nixtla/transfer-learning-time-series/main/datasets/electricity-short.csv')
+
+# 3. Forecast the next 24 hours
+fcst_df = nixtla_client.forecast(df, h=24, level=[80, 90])
+
+# 4. Plot your results (optional)
+nixtla_client.plot(df, fcst_df, level=[80, 90])
+
 ```
+![Forecast Results](./nbs/img/forecast_readme.png)
 
-
-Each time series of the uploaded datasets is defined by the column `item_id`. Meanwhile the time column is defined by `timestamp` and the target column by `demand`. We need to pass this arguments to each call.
-
+###  Anomaly detection using TimeGPT in 3 easy steps
 ```python
-columns = dict(unique_id_column='item_id',
-               ds_column='timestamp',
-               y_column='demand')
+# Get your API Key at dashboard.nixtla.io
+
+# 1. Instantiate the NixtlaClient
+nixtla_client = NixtlaClient(api_key = 'YOUR API KEY HERE')
+
+# 2. Read Data # Wikipedia visits of NFL Star (
+df = pd.read_csv('https://datasets-nixtla.s3.amazonaws.com/peyton-manning.csv')
+
+
+# 3. Detect Anomalies
+anomalies_df = nixtla_client.detect_anomalies(df, time_col='timestamp', target_col='value', freq='D')
+
+# 4. Plot your results (optional)
+nixtla_client.plot(df, anomalies_df,time_col='timestamp', target_col='value')
 ```
-</details>
+![AnomalyDetection](nbs/img/anomaly.png)
 
-<details>
-<summary> Send the job to make forecasts and Download </summary>
+## 🤓 API support for other languages
+Explore our [API Reference](https://docs.nixtla.io) to discover how to leverage TimeGPT across various programming languages including JavaScript, Go, and more.
 
-```python
-response_forecast = autotimeseries.tsforecast(filename_target=filename_target,
-                                              freq='D',
-                                              horizon=28,
-                                              filename_static=filename_static,
-                                              filename_temporal=filename_temporal,
-                                              objective='tweedie',
-                                              metric='rmse',
-                                              n_estimators=170,
-                                              **columns)
-```
+## 🔥 Features and Capabilities
 
-#### Download forecasts
+- **Zero-shot Inference**: TimeGPT can generate forecasts and detect anomalies straight out of the box, requiring no prior training data. This allows for immediate deployment and quick insights from any time series data.
 
-```python
-autotimeseries.download_from_s3(filename='forecasts_2021-10-12_19-04-32.csv', filename_output='../data/forecasts.csv')
-```
-</details>
+- **Fine-tuning**: Enhance TimeGPT's capabilities by fine-tuning the model on your specific datasets, enabling the model to adapt to the nuances of your unique time series data and improving performance on tailored tasks.
 
+- **API Access**: Integrate TimeGPT seamlessly into your applications via our robust API. Upcoming support for Azure Studio will provide even more flexible integration options. Alternatively, deploy TimeGPT on your own infrastructure to maintain full control over your data and workflows.
 
-# Forecasting Pipeline as a Service
+- **Add Exogenous Variables**: Incorporate additional variables that might influence your predictions to enhance forecast accuracy. (E.g. Special Dates, events or prices)
 
-Our forecasting pipeline is modular and built upon simple APIs:
+- **Multiple Series Forecasting**: Simultaneously forecast multiple time series data, optimizing workflows and resources.
 
-## tspreprocess
+- **Custom Loss Function**: Tailor the fine-tuning process with a custom loss function to meet specific performance metrics.
 
-[![CI/CD tspreprocess Lambda](https://github.com/Nixtla/nixtla/actions/workflows/tspreprocess-lambda.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/tspreprocess-lambda.yml)
-[![CI/CD tspreprocess docker image](https://github.com/Nixtla/nixtla/actions/workflows/tspreprocess-docker-image.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/tspreprocess-docker-image.yml)
+- **Cross Validation**: Implement out of the box cross-validation techniques to ensure model robustness and generalizability.
 
-Time series usually contain missing values. This is the case for sales data where only the events that happened are recorded. In these cases it is convenient to balance the panel, i.e., to include the missing values to correctly determine the value of future sales.
+- **Prediction Intervals**: Provide intervals in your predictions to quantify uncertainty effectively.
 
-The [tspreprocess](https://github.com/Nixtla/nixtla/tree/main/tspreprocess) API allows you to do this quickly and easily. In addition, it allows one-hot encoding of static variables (specific to each time series, such as the product family in case of sales) automatically.
+- **Irregular Timestamps**: Handle data with irregular timestamps, accommodating non-uniform interval series without preprocessing.
 
-## tsfeatures
+## 📚 Documentation with examples and use cases
 
-[![CI/CD tsfeatures Lambda](https://github.com/Nixtla/nixtla/actions/workflows/tsfeatures-lambda.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/tsfeatures-lambda.yml)
-[![CI/CD tsfeatures docker image](https://github.com/Nixtla/nixtla/actions/workflows/tsfeatures-docker-image.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/tsfeatures-docker-image.yml)
+Dive into our [comprehensive documentation](https://docs.nixtla.io/docs/getting-started-timegpt_quickstart) to discover examples and practical use cases for TimeGPT. Our documentation covers a wide range of topics, including:
 
-It is usually good practice to create features of the target variable so that they can be consumed by machine learning models. This API allows users to create features at the time series level (or static features) and also at the temporal level.
+- **Getting Started**: Begin with our user-friendly [Quickstart Guide](https://docs.nixtla.io/docs/getting-started-timegpt_quickstart) and learn how to [set up your API key](https://docs.nixtla.io/docs/getting-started-setting_up_your_api_key) effortlessly.
 
-The [tsfeatures](https://github.com/Nixtla/nixtla/tree/main/tsfeatures) API is based on the [tsfeatures](https://github.com/Nixtla/tsfeatures) library also developed by the Nixtla team (inspired by the R package [tsfeatures](https://github.com/robjhyndman/tsfeatures)) and the [tsfresh](https://github.com/blue-yonder/tsfresh) library.
+- **Advanced Techniques**: Master advanced forecasting methods and learn how to enhance model accuracy with our tutorials on [anomaly detection](https://docs.nixtla.io/docs/tutorials-anomaly_detection), fine-tuning models using specific loss functions, and scaling computations across distributed frameworks such as [Spark, Dask, and Ray](https://docs.nixtla.io/docs/tutorials-computing_at_scale).
 
-With this API the user can also generate holiday variables. Just enter the country of the special dates or a file with the specific dates and the API will return dummy variables of those dates for each observation in the dataset.
+- **Specialized Topics**: Explore specialized topics like [handling exogenous variables](https://docs.nixtla.io/docs/tutorials-holidays_and_special_dates), model validation through [cross-validation](https://docs.nixtla.io/docs/tutorials-cross_validation), and strategies for [forecasting under uncertainty](https://docs.nixtla.io/docs/tutorials-uncertainty_quantification).
 
-## tsforecast
-
-[![CI/CD tsforecast Lambda](https://github.com/Nixtla/nixtla/actions/workflows/tsforecast-lambda.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/tsforecast-lambda.yml)
-[![CI/CD tsforecast docker image](https://github.com/Nixtla/nixtla/actions/workflows/tsforecast-docker-image.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/tsforecast-docker-image.yml)
-
-The [tsforecast](https://github.com/Nixtla/nixtla/tree/main/tsforecast) API is responsible for generating the time series forecasts. It receives as input the target data and can also receive static variables and time variables. At the moment, the API uses the [mlforecast](https://github.com/Nixtla/mlforecast) library developed by the Nixtla team using LightGBM as a model.
-
-In future iterations, the user will be able to choose different Deep Learning models based on the [nixtlats](https://github.com/Nixtla/nixtlats) library developed by the Nixtla team.
-
-## tsbenchmarks
-
-[![CI/CD tsbenchmarks Lambda](https://github.com/Nixtla/nixtla/actions/workflows/tsbenchmarks-lambda.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/tsbenchmarks-lambda.yml)
-[![CI/CD tsbenchmarks docker image](https://github.com/Nixtla/nixtla/actions/workflows/tsbenchmarks-docker-image.yml/badge.svg)](https://github.com/Nixtla/nixtla/actions/workflows/tsbenchmarks-docker-image.yml)
-
-The [tsbenchmarks](https://github.com/Nixtla/nixtla/tree/main/tsbenchmarks) API is designed to easily compare the performance of models based on time series competition datasets. In particular, the API offers the possibility to evaluate forecasts of any frequency of the M4 competition and also of the M5 competition.
+- **Real-World Applications**: Uncover how TimeGPT is applied in real-world scenarios through case studies on [forecasting web traffic](https://docs.nixtla.io/docs/use-cases-forecasting_web_traffic) and [predicting Bitcoin prices](https://docs.nixtla.io/docs/use-cases-bitcoin_price_prediction).
 
 
-These APIs, written in Python and can be consumed through an [SDK](https://github.com/Nixtla/nixtla/tree/main/sdk/python-autotimeseries) also written in Python. The following diagram summarizes the structure of our pipeline:
 
-<img src="https://raw.githubusercontent.com/Nixtla/nixtla/main/.github/images/sdk.png">
+## 🗞️ TimeGPT-1: Revolutionizing Forecasting and Anomaly Detection
 
-# Build your own Nixtla in AWS
+Time series data is pivotal across various sectors, including finance, healthcare, meteorology, and social sciences. Whether it's monitoring ocean tides or tracking the Dow Jones's daily closing values, time series data is crucial for forecasting and decision-making.
 
-## Why ?
-We want to contribute to open source and help data scientists and developers to achieve great forecasting results without the need to implement complex pipelines.
+Traditional analysis methods such as ARIMA, ETS, MSTL, Theta, CES, machine learning models like XGBoost and LightGBM, and deep learning approaches have been standard tools for analysts. However, TimeGPT introduces a paradigm shift with its standout performance, efficiency, and simplicity. Thanks to its zero-shot inference capability, TimeGPT streamlines the analytical process, making it accessible even to users with minimal coding experience.
 
-## How?
+TimeGPT is user-friendly and low-code, enabling users to upload their time series data and either generate forecasts or detect anomalies with just a single line of code. As the only foundation model for time series analysis out of the box, TimeGPT can be integrated via our public APIs, through Azure Studio (coming soon), or deployed on your own infrastructure.
 
-If you want to use our hosted version send us an email or open a github issue and ask for API Keys.
+## ⚙️ TimeGPT's Architecture
+Self-attention, the revolutionary concept introduced by the paper “Attention is all you need“, is the basis of the this foundational model. The TimeGPT model is not based on any existing large language model(LLMs). It is independently trained on vast timeseries dataset as a large transformer model and is designed so as to minimize the forecasting error.
 
-If you want to deploy Nixtla on your own AWS Cloud you will need:
+The architecture consists of an encoder-decoder structure with
+multiple layers, each with residual connections and layer normalization. Finally, a linear layer maps the decoder’s output to the forecasting window dimension. The general intuition is that attentionbased mechanisms are able to capture the diversity of past events and correctly extrapolate potential
+future distributions.
 
-- API Gateway (to handle API calls).
-- Lambda (or some computational unit).
-- SageMaker (or some bigger computational unit).
-- ECR (to store Docker images).
-- S3 (for inputs and outputs).
-
-You will end with an architecture that looks like the following diagram
-
-<img src="https://raw.githubusercontent.com/Nixtla/nixtla/main/.github/images/Architecture.png">
+![Arquitecture](nbs/img/forecast.png)
 
 
-Each call to the API executes a particular Lambda function depending on the endpoint. That particular lambda function instantiates a SageMaker job using a predefined type of instance. Finally, SageMaker reads the input data from S3 and writes the processed data to S3, using a predefined Docker image stored in ECR.
+TimeGPT was trained on, to our knowledge, the largest collection of publicly available time series,
+collectively encompassing over 100 billion data points. This training set incorporates time series
+from a broad array of domains, including finance, economics, demographics, healthcare, weather,
+IoT sensor data, energy, web traffic, sales, transport, and banking. Due to this diverse set of domains,
+the training dataset contains time series with a wide range of characteristics
 
-To create that infrastructue you can use our own Terraform code (infrastructure as code) or you can create the services from the console.
+---
 
-## 1. Terraform (infrastructure as Code)
+## ⚡️ Zero-shot Results
+### Accuracy:
+TimeGPT has been tested for its zero-shot inference capabilities on more than 300K unique series, which involve using the model without additional fine-tuning on the test dataset. TimeGPT outperforms a comprehensive range of well-established statistical and cutting-edge deep learning models, consistently ranking among the top three performers across various frequencies.
 
-Terraform is an open-source Infrastructure as Code tool that allows you to synthesize all the manual development into an automatic script. We have written all the needed steps to facilitate the deployment of Nixlta in your infrastructure. The Terraform code to create your infrastructure can be found [at this link](https://github.com/Nixtla/nixtla/tree/main/iac/terraform/aws). Just follow the next steps:
+### Ease of use:
+TimeGPT also excels by offering simple and rapid predictions using a pre-trained model. This stands in stark contrast to other models that typically require an extensive training and prediction pipeline.
 
-1. Define your AWS credentials. You can define them using:
+![Results](nbs/img/results.jpg)
+
+### Efficiency and Speed:
+For zero-shot inference, our internal tests recorded an average GPU inference speed of 0.6 milliseconds per series for TimeGPT, which nearly mirrors that of the simple Seasonal Naive.
+
+## 📝 How to cite?
+
+If you find TimeGPT useful for your research, please consider citing the associated [paper](https://arxiv.org/abs/2310.03589):
 
 ```
-export AWS_ACCESS_KEY_ID="anaccesskey"
-export AWS_SECRET_ACCESS_KEY="asecretkey"
+@misc{garza2023timegpt1,
+      title={TimeGPT-1},
+      author={Azul Garza and Max Mergenthaler-Canseco},
+      year={2023},
+      eprint={2310.03589},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
 ```
 
-These credentials require permissions to use the S3, ECR, lambda and API Gateway services; in addition, you must be able to create IAM users.
+## 🎉 Features and Mentions
+TimeGPT has been featured in many publications and has been recognized for its innovative approach to time series forecasting. Here are some of the features and mentions:
 
-2. To use Terraform, you must install it. [Here is an excellent guide](https://learn.hashicorp.com/tutorials/terraform/install-cli) to do so.
+- [TimeGPT Revolutionizing Time Series Forecasting](https://www.analyticsvidhya.com/blog/2024/02/timegpt-revolutionizing-time-series-forecasting/)
+- [TimeGPT: The First Foundation Model for Time Series Forecasting](https://towardsdatascience.com/timegpt-the-first-foundation-model-for-time-series-forecasting-bf0a75e63b3a)
+- [TimeGPT: Revolutionising Time Series Forecasting with Generative Models](https://medium.com/@22meera99/timegpt-revolutionising-time-series-forecasting-with-generative-models-86be6c09fa51)
+- [TimeGPT on Turing Post](https://www.turingpost.com/p/timegpt)
+- [TimeGPT Presentation at AWS Events](https://www.youtube.com/watch?v=5pYkT0rTCfE&ab_channel=AWSEvents)
+- [TimeGPT: Machine Learning for Time Series Made Accessible - Podcast](https://podcasts.apple.com/bg/podcast/timegpt-machine-learning-for-time-series-made-accessible/id1487704458?i=1000638551991)
+- [TimeGPT on The Data Exchange](https://thedataexchange.media/timegpt/)
+- [How TimeGPT Transforms Predictive Analytics with AI](https://hackernoon.com/how-timegpt-transforms-predictive-analytics-with-ai)
+- [TimeGPT: The First Foundation Model - AI Horizon Forecast](https://aihorizonforecast.substack.com/p/timegpt-the-first-foundation-model)
 
-3. Position yourself in the `iac/terraform/aws` folder.
 
-4. Run the command `terraform init`. This command will initialize the working directory with the necessary configuration.
+## 🔖 License
+TimeGPT is closed source. However, this SDK is open source and available under the Apache 2.0 License. Feel free to contribute (check out the [Contributing](https://github.com/Nixtla/nixtla/blob/main/CONTRIBUTING.md) guide for more details).
 
-5. Finally, you just need to use `terraform apply`. First, the list of services to be built will be displayed. You will have to accept to start the build. Once finished, you will get the API key needed to run the process, as well as the addresses of each of the APIs.
-
-## 2. Create AWS resources using the console
-
-### Create S3 buckets
-
-For each service:
-1. Create an S3 bucket. The code of each lambda function will be uploaded here.
-
-### Create ECR repositorires
-
-For each service:
-
-1. Create a private repository for each service.
-
-### Lambda Function
-
-For each service:
-
-1. Create a lambda function with `Python 3.7` runtime.
-2. Modify the runtime setting and enter `main.handler` in the handler.
-3. Go to the configuration:
-	- Edit the general configuration and add a timeout of `9:59`.
-	- Add an existing role capable of reading/writing from/to S3 and running Sagemaker services.
-4. Add the following environment variables:
-	- `PROCESSING_REPOSITORY_URI`: ECR URI of the docker image corresponding to the service.
-	- `ROLE`: A  role capable of reading/writing from/to S3 and also running Sagemaker services.
- 	- `INSTANCE_COUNT`
-	- `INSTANCE_TYPE`
-
-### API Gateway
-
-1. Create a public REST API (Regional).
-2. For each endpoint in `api/main.py`… add a resource.
-3. For each created method add an ANY method:
-	- Select lambda function.
-	- Select Use Lambda Proxy Integration.
-	- Introduce the name of the lambda function linked to that resource.
-	- Once the method is created select Method Request and set API key required to true.
-4. Deploy the API.
-
-### Usage plan
-
-1. Create a usage plan based on your needs.
-2. Add your API stage.
-
-### API Keys
-
-1. Generate API keys as needed.
-
-## Deployment
-
-### GitHub secrets
-
-1. Set the following secrets in your repo:
-	- `AWS_ACCESS_KEY_ID`
-	- `AWS_SECRET_ACCESS_KEY`
-	- `AWS_DEFAULT_REGION`
-
-## Run the API locally
-
-  1. Create the environment using `make init`.
-  2. Launch the app using `make app`.
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/mergenthaler"><img src="https://avatars.githubusercontent.com/u/4086186?v=4?s=100" width="100px;" alt=""/><br /><sub><b>mergenthaler</b></sub></a><br /><a href="#ideas-mergenthaler" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/Nixtla/nixtla/commits?author=mergenthaler" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.kielrodriguez.com/"><img src="https://avatars.githubusercontent.com/u/5693853?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kiel Rodríguez</b></sub></a><br /><a href="https://github.com/Nixtla/nixtla/commits?author=KielRodriguez" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/kdgutier"><img src="https://avatars.githubusercontent.com/u/19935241?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kin</b></sub></a><br /><a href="https://github.com/Nixtla/nixtla/commits?author=kdgutier" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/mergenthaler"><img src="https://avatars.githubusercontent.com/u/4086186?v=4?s=100" width="100px;" alt=""/><br /><sub><b>mergenthaler</b></sub></a><br /><a href="#ideas-mergenthaler" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/FedericoGarza"><img src="https://avatars.githubusercontent.com/u/10517170?v=4?s=100" width="100px;" alt=""/><br /><sub><b>fede</b></sub></a><br /><a href="https://github.com/Nixtla/nixtla/commits?author=FedericoGarza" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+## 📞 Get in touch
+For any questions or feedback, please feel free to reach out to us at ops [at] nixtla.io.
